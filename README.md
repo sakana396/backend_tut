@@ -1,6 +1,6 @@
-# 足し算 API チュートリアル
+# 計算 API チュートリアル
 
-Python の **FastAPI** を使って、2 つの数字を受け取って足し算した結果を返す Web API を作るチュートリアルです。
+Python の **FastAPI** を使って、2 つの数字を受け取って計算した結果を返す Web API を作るチュートリアルです。
 
 ---
 
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 ```python
 from fastapi import FastAPI
 
-app = FastAPI(title="足し算 API", description="2つの数字を足し算して返すシンプルな API")
+app = FastAPI(title="計算 API", description="2つの数字を受け取って計算するシンプルな API")
 
 
 @app.get("/add")
@@ -74,12 +74,21 @@ uvicorn main:app --reload
 
 ```
 GET /add?a={数字1}&b={数字2}
+GET /calculate?a={数字1}&b={数字2}&operator={計算方法}
 ```
+
+`operator` には以下を指定できます。
+
+- `add`: 足し算
+- `subtract`: 引き算
+- `multiply`: 掛け算
+- `divide`: 割り算
 
 ### リクエスト例
 
 ```bash
 curl "http://127.0.0.1:8000/add?a=3&b=5"
+curl "http://127.0.0.1:8000/calculate?a=10&b=4&operator=subtract"
 ```
 
 ### レスポンス例
@@ -89,6 +98,15 @@ curl "http://127.0.0.1:8000/add?a=3&b=5"
   "a": 3.0,
   "b": 5.0,
   "result": 8.0
+}
+```
+
+```json
+{
+  "a": 10.0,
+  "b": 4.0,
+  "operator": "subtract",
+  "result": 6.0
 }
 ```
 
