@@ -1,8 +1,14 @@
-__pycache__/
-*.pyc
-*.pyo
-.pytest_cache/
-*.egg-info/
-dist/
-build/
-.env
+# Go
+*.o
+*.a
+*.so
+.DS_Store
+
+# Go build
+/fizzbuzz
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

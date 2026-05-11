@@ -1,123 +1,54 @@
-# 計算 API チュートリアル
+# FizzBuzz - Go版
 
-Python の **FastAPI** を使って、2 つの数字を受け取って計算した結果を返す Web API を作るチュートリアルです。
+シンプルな FizzBuzz 実装プロジェクト（onboard 教材用）
 
----
+## プロジェクト構成
 
-## 目次
+```
+.
+├── main.go              # エントリーポイント（編集不要）
+├── calculate/
+│   └── fizzbuzz.go      # FizzBuzz ロジック（ここを編集）
+├── go.mod
+└── README.md
+```
 
-1. [前提条件](#前提条件)
-2. [セットアップ](#セットアップ)
-3. [コードの説明](#コードの説明)
-4. [サーバーの起動](#サーバーの起動)
-5. [API の使い方](#api-の使い方)
-6. [テストの実行](#テストの実行)
+## FizzBuzz のルール
 
----
+- 3 の倍数 → "Fizz"
+- 5 の倍数 → "Buzz"
+- 15 の倍数 → "FizzBuzz"
+- それ以外 → その数値
 
-## 前提条件
-
-- Python 3.9 以上がインストールされていること
-
----
-
-## セットアップ
+## 実行方法
 
 ```bash
-# 依存パッケージをインストール
-pip install -r requirements.txt
+go run main.go
+# 入力例: 15
+# 出力: FizzBuzz
 ```
 
----
-
-## コードの説明
-
-`main.py` の内容を確認してみましょう。
-
-```python
-from fastapi import FastAPI
-
-app = FastAPI(title="計算 API", description="2つの数字を受け取って計算するシンプルな API")
-
-
-@app.get("/add")
-def add(a: float, b: float) -> dict:
-    """2つの数字 a と b を受け取り、その合計を返す"""
-    return {"a": a, "b": b, "result": a + b}
-```
-
-| 行 | 説明 |
-|----|------|
-| `FastAPI(...)` | アプリケーションのインスタンスを作成します |
-| `@app.get("/add")` | `GET /add` というエンドポイントを定義します |
-| `a: float, b: float` | クエリパラメータとして 2 つの数字を受け取ります |
-| `return {...}` | 入力値と計算結果を JSON で返します |
-
----
-
-## サーバーの起動
+## テスト例
 
 ```bash
-uvicorn main:app --reload
+# 15 → FizzBuzz
+go run main.go <<< "15"
+
+# 3 → Fizz
+go run main.go <<< "3"
+
+# 5 → Buzz
+go run main.go <<< "5"
+
+# 2 → 2
+go run main.go <<< "2"
 ```
 
-起動すると以下の URL でアクセスできます。
+## 学習ポイント
 
-- API: `http://127.0.0.1:8000`
-- 自動生成ドキュメント (Swagger UI): `http://127.0.0.1:8000/docs`
+- **Go の基本**: パッケージ構造、エクスポート（大文字）
+- **関数実装**: ロジック実装と単純な条件分岐
 
----
+## 編集対象
 
-## API の使い方
-
-### エンドポイント
-
-```
-GET /add?a={数字1}&b={数字2}
-GET /calculate?a={数字1}&b={数字2}&operator={計算方法}
-```
-
-`operator` には以下を指定できます。
-
-- `add`: 足し算
-- `subtract`: 引き算
-- `multiply`: 掛け算
-- `divide`: 割り算
-
-### リクエスト例
-
-```bash
-curl "http://127.0.0.1:8000/add?a=3&b=5"
-curl "http://127.0.0.1:8000/calculate?a=10&b=4&operator=subtract"
-```
-
-### レスポンス例
-
-```json
-{
-  "a": 3.0,
-  "b": 5.0,
-  "result": 8.0
-}
-```
-
-```json
-{
-  "a": 10.0,
-  "b": 4.0,
-  "operator": "subtract",
-  "result": 6.0
-}
-```
-
-ブラウザで `http://127.0.0.1:8000/docs` を開くと、GUI 上で API を試すこともできます。
-
----
-
-## テストの実行
-
-```bash
-pytest test_main.py -v
-```
-
-テストが全て通れば実装は完了です 🎉
+`calculate/fizzbuzz.go` の `FizzBuzz()` 関数のみ編集してください。
