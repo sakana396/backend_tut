@@ -1,16 +1,11 @@
 package calculate
 
-import "fmt"
-
-func FizzBuzz(n int) string {
-	if n%15 == 0 {
-		return "FizzBuzz"
-	}
-	if n%3 == 0 {
-		return "Fizz"
-	}
-	if n%5 == 0 {
-		return "Buzz"
-	}
-	return fmt.Sprintf("%d", n)
+// FizzBuzz は与えられた数値に対して FizzBuzz ルールを適用した結果を返す
+// - 15 の倍数: "FizzBuzz"
+// - 3 の倍数: "Fizz"
+// - 5 の倍数: "Buzz"
+// - その他: 数値を文字列化した値
+func FizzBuzz(number int) string {
+	// todo: FizzBuzz ロジックを実装する
+	return "何もしてない"
 }

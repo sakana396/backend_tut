@@ -1,14 +1,20 @@
 package main
 
 import (
-	"calculate"
+	"fizzbuzz/calculate"
 	"fmt"
 )
 
+// main は標準入力から数値を受け取り、FizzBuzz の結果を出力する
 func main() {
-	var input int
-	fmt.Scanf("%d", &input)
-	num := calculate.FizzBuzz(input)
+	//変数宣言
+	var number int
+	// 標準入力から数値を読み込む
+	fmt.Scanf("%d", &number)
 
-	fmt.Println(num)
+	// FizzBuzz ロジックを実行
+	result := calculate.FizzBuzz(number)
+
+	// 結果を出力
+	fmt.Println(result)
 }
