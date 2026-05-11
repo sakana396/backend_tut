@@ -52,3 +52,95 @@ go run main.go <<< "2"
 ## 編集対象
 
 `calculate/fizzbuzz.go` の `FizzBuzz()` 関数のみ編集してください。
+
+## セットアップガイド
+
+### WSL（Windows Subsystem for Linux）のインストール
+
+Windows 10 以降で Golang 開発環境を構築する場合、WSL の使用を推奨します。
+
+#### 1. PowerShell を管理者権限で開く
+
+Windows キーを押して「PowerShell」と入力し、「Windows PowerShell」を右クリックして「管理者として実行」を選択します。
+
+#### 2. WSL をインストール
+
+```powershell
+wsl --install
+```
+
+このコマンドで WSL2 と Ubuntu がインストールされます。
+
+#### 3. 再起動とセットアップ
+
+インストール後、PC を再起動します。再起動後、Ubuntu が自動的に起動し、ユーザー名とパスワードを設定するよう求められます。
+
+#### 4. WSL Ubuntu を起動
+
+以降、Windows ターミナルから Ubuntu にアクセスできます。ターミナルを開いて以下を実行：
+
+```bash
+wsl
+```
+
+### Golang のインストール
+
+WSL または Linux 環境での Golang インストール方法です。
+
+#### 1. 最新の Go をダウンロード
+
+```bash
+wget https://go.dev/dlgo1.26.3.linux-amd64.tar.gz
+```
+
+（バージョンは最新版に合わせてください。[go.dev/dl](https://go.dev/dl) で確認）
+
+#### 2. 既存の Go を削除（初回は不要）
+
+```bash
+sudo rm -rf /usr/local/go
+```
+
+#### 3. Go をインストール
+
+```bash
+sudo tar -C /usr/local -xzf go1.22.linux-amd64.tar.gz
+```
+
+#### 4. パスを設定
+
+`.bashrc` または `.zshrc` に以下を追加：
+
+```bash
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+```
+
+設定を反映：
+
+```bash
+source ~/.bashrc  # bash を使用している場合
+# または
+source ~/.zshrc   # zsh を使用している場合
+```
+
+#### 5. インストール確認
+
+```bash
+go version
+```
+
+`go version go1.22.x linux/amd64` のような出力が表示されればインストール完了です。
+
+### クイックスタート
+
+環境構築が完了したら：
+
+```bash
+# プロジェクトディレクトリに移動
+cd /path/to/backend_tut
+
+# 実行
+go run main.go
+```
