@@ -1,146 +1,58 @@
-# FizzBuzz - Go版
+# 研修1：Go の基礎と HTTP サーバ入門
 
-シンプルな FizzBuzz 実装プロジェクト（onboard 教材用）
+Go で小さなプログラムを動かし、簡単な HTTP サーバを作るための入門教材です。
+FizzBuzz で関数と条件分岐に触れてから、ブラウザや `curl` でサーバの応答を確認します。
 
-## プロジェクト構成
+## 学習の進め方
 
-```
-.
-├── main.go              # エントリーポイント（編集不要）
-├── calculate/
-│   └── fizzbuzz.go      # FizzBuzz ロジック（ここを編集）
-├── go.mod
-└── README.md
-```
+| 順番 | 資料 | 到達目標 |
+| --- | --- | --- |
+| 0 | [環境構築](docs/setup.md) | Go を実行できる環境を用意する |
+| 1 | [FizzBuzz 演習](docs/fizzbuzz.md) | 入力・関数・条件分岐・出力の流れを理解する |
+| 2 | [HTTP サーバ演習](docs/http.md) | サーバを起動し、URL ごとの応答を確認する |
 
-## FizzBuzz のルール
+Go が使える場合は、FizzBuzz 演習から始めてください。
 
-- 3 の倍数 → "Fizz"
-- 5 の倍数 → "Buzz"
-- 15 の倍数 → "FizzBuzz"
-- それ以外 → その数値
+## まず動かす
 
-## 実行方法
-
-```bash
-go run main.go
-# 入力例: 15
-# 出力: FizzBuzz
-```
-
-## テスト例
-
-```bash
-# 15 → FizzBuzz
-go run main.go <<< "15"
-
-# 3 → Fizz
-go run main.go <<< "3"
-
-# 5 → Buzz
-go run main.go <<< "5"
-
-# 2 → 2
-go run main.go <<< "2"
-```
-
-## 学習ポイント
-
-- **Go の基本**: パッケージ構造、エクスポート（大文字）
-- **関数実装**: ロジック実装と単純な条件分岐
-
-## 編集対象
-
-`calculate/fizzbuzz.go` の `FizzBuzz()` 関数のみ編集してください。
-
-## セットアップガイド
-
-### WSL（Windows Subsystem for Linux）のインストール
-
-Windows 10 以降で Golang 開発環境を構築する場合、WSL の使用を推奨します。
-
-#### 1. PowerShell を管理者権限で開く
-
-Windows キーを押して「PowerShell」と入力し、「Windows PowerShell」を右クリックして「管理者として実行」を選択します。
-
-#### 2. WSL をインストール
-
-```powershell
-wsl --install
-```
-
-このコマンドで WSL2 と Ubuntu がインストールされます。
-
-#### 3. 再起動とセットアップ
-
-インストール後、PC を再起動します。再起動後、Ubuntu が自動的に起動し、ユーザー名とパスワードを設定するよう求められます。
-
-#### 4. WSL Ubuntu を起動
-
-以降、Windows ターミナルから Ubuntu にアクセスできます。ターミナルを開いて以下を実行：
-
-```bash
-wsl
-```
-
-### Golang のインストール
-
-WSL または Linux 環境での Golang インストール方法です。
-
-#### 1. 最新の Go をダウンロード
-
-```bash
-wget https://go.dev/dlgo1.26.3.linux-amd64.tar.gz
-```
-
-（バージョンは最新版に合わせてください。[go.dev/dl](https://go.dev/dl) で確認）
-
-#### 2. 既存の Go を削除（初回は不要）
-
-```bash
-sudo rm -rf /usr/local/go
-```
-
-#### 3. Go をインストール
-
-```bash
-sudo tar -C /usr/local -xzf go1.22.linux-amd64.tar.gz
-```
-
-#### 4. パスを設定
-
-`.bashrc` または `.zshrc` に以下を追加：
-
-```bash
-export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-```
-
-設定を反映：
-
-```bash
-source ~/.bashrc  # bash を使用している場合
-# または
-source ~/.zshrc   # zsh を使用している場合
-```
-
-#### 5. インストール確認
+ターミナルでこのプロジェクトのディレクトリに移動します。
+以降のコマンドは、`go.mod` がある場所で実行してください。
 
 ```bash
 go version
+go run .
 ```
 
-`go version go1.22.x linux/amd64` のような出力が表示されればインストール完了です。
+`15` を入力して Enter を押すと、`FizzBuzz` が表示されます。
 
-### クイックスタート
-
-環境構築が完了したら：
+HTTP サーバは次のコマンドで起動します。
 
 ```bash
-# プロジェクトディレクトリに移動
-cd /path/to/backend_tut
-
-# 実行
-go run main.go
+go run ./api
 ```
+
+ブラウザで `http://localhost:8080` を開くと、現在のコードでは `Hello, World!` が表示されます。
+サーバを止めるときは、起動したターミナルで `Ctrl + C` を押します。
+
+## ファイル構成
+
+```text
+.
+├── README.md             # 研修の入口・進め方
+├── go.mod                # Go モジュールの設定
+├── main.go               # FizzBuzz の入力・出力
+├── calculate/
+│   └── fizzbuzz.go       # FizzBuzz の処理
+├── api/
+│   └── main.go           # HTTP サーバ
+└── docs/
+    ├── setup.md          # 環境構築
+    ├── fizzbuzz.md       # FizzBuzz 演習
+    └── http.md           # HTTP サーバ演習
+```
+
+## 教材の現在の状態
+
+FizzBuzz は実装済みです。HTTP サーバには `/` と `/f` のルートがあり、どちらも `Hello, World!` を返します。
+HTTP サーバ演習では、`hello` を返す基本のコードから `/health` の追加へ進みます。
+資料内のコード例と、演習中の自分のコードを見比べながら進めてください。
